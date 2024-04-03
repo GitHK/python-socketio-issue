@@ -4,8 +4,16 @@ SHELL = /bin/sh
 .DEFAULT_GOAL := help
 
 .PHONY: build
-build: ## bult image
-	docker build -t test_image .
+build: ## bult test image
+	docker build -t test-image:latest .
+
+.PHONY: run-failing
+run-failing: ## produces failing results
+	docker run -it --rm --privileged test-image:latest ./scripts/code_fails.sh
+
+.PHONY: run-working
+run-working: ## produces working results
+	docker run -it --rm  --privileged test-image:latest ./scripts/code_works.sh
 
 .PHONY: help
 help: ## this colorful help

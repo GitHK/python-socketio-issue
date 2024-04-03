@@ -1,7 +1,8 @@
-FROM python:3.12
+FROM python:3.9
+ 
+COPY ./scripts ./scripts
 
-RUN pip install --upgrade pip && \
-    pip install \
-    aiohttp==3.9.3 \
-    python-socketio==5.11.2
-COPY ./src /src
+ENV VIRTUAL_ENV=/usr/local
+RUN pip install uv
+ 
+CMD [ "/bin/bash" ]
