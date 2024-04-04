@@ -17,8 +17,8 @@ make run-working
 ```
 ```
 docker run -it --rm  --privileged test-image:latest ./code_works.sh
-Resolved 16 packages in 263ms
-Downloaded 16 packages in 71ms
+Resolved 16 packages in 303ms
+Downloaded 16 packages in 75ms
 Installed 16 packages in 12ms
  + aiohttp==3.8.6
  + aiosignal==1.3.1
@@ -36,28 +36,51 @@ Installed 16 packages in 12ms
  + tenacity==8.2.3
  + wsproto==1.2.0
  + yarl==1.9.4
+2024-04-04 08:03:49 - DEBUG - /usr/local/lib/python3.9/asyncio/selector_events.py - Using selector: EpollSelector
 Server initialized for aiohttp.
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/base_server.py - Server initialized for aiohttp.
 Attempting WebSocket connection to ws://127.0.0.1:8328/socket.io/?transport=websocket&EIO=4
-a62jkBwNR-XNm9jjAAAA: Sending packet OPEN data {'sid': 'a62jkBwNR-XNm9jjAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
-a62jkBwNR-XNm9jjAAAA: Received request to upgrade to websocket
-a62jkBwNR-XNm9jjAAAA: Upgrade to websocket successful
-WebSocket connection accepted with {'sid': 'a62jkBwNR-XNm9jjAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Attempting WebSocket connection to ws://127.0.0.1:8328/socket.io/?transport=websocket&EIO=4
+dl3uwQQuzOkUR2WVAAAA: Sending packet OPEN data {'sid': 'dl3uwQQuzOkUR2WVAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_socket.py - dl3uwQQuzOkUR2WVAAAA: Sending packet OPEN data {'sid': 'dl3uwQQuzOkUR2WVAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+dl3uwQQuzOkUR2WVAAAA: Received request to upgrade to websocket
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_socket.py - dl3uwQQuzOkUR2WVAAAA: Received request to upgrade to websocket
+dl3uwQQuzOkUR2WVAAAA: Upgrade to websocket successful
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_socket.py - dl3uwQQuzOkUR2WVAAAA: Upgrade to websocket successful
+WebSocket connection accepted with {'sid': 'dl3uwQQuzOkUR2WVAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - WebSocket connection accepted with {'sid': 'dl3uwQQuzOkUR2WVAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
 Engine.IO connection established
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/socketio/async_client.py - Engine.IO connection established
 Sending packet MESSAGE data 0{}
-a62jkBwNR-XNm9jjAAAA: Received packet MESSAGE data 0{}
-a62jkBwNR-XNm9jjAAAA: Sending packet MESSAGE data 0{"sid":"IRs6RcL23OI1tTXcAAAB"}
-Received packet MESSAGE data 0{"sid":"IRs6RcL23OI1tTXcAAAB"}
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Sending packet MESSAGE data 0{}
+dl3uwQQuzOkUR2WVAAAA: Received packet MESSAGE data 0{}
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_socket.py - dl3uwQQuzOkUR2WVAAAA: Received packet MESSAGE data 0{}
+dl3uwQQuzOkUR2WVAAAA: Sending packet MESSAGE data 0{"sid":"jHXNPyXePhhIMEcVAAAB"}
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_socket.py - dl3uwQQuzOkUR2WVAAAA: Sending packet MESSAGE data 0{"sid":"jHXNPyXePhhIMEcVAAAB"}
+Received packet MESSAGE data 0{"sid":"jHXNPyXePhhIMEcVAAAB"}
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Received packet MESSAGE data 0{"sid":"jHXNPyXePhhIMEcVAAAB"}
 Namespace / is connected
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/socketio/async_client.py - Namespace / is connected
 Sending packet MESSAGE data 1
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Sending packet MESSAGE data 1
 Sending packet CLOSE data None
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Sending packet CLOSE data None
 Engine.IO connection dropped
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/socketio/async_client.py - Engine.IO connection dropped
 Write loop: WebSocket connection was closed, aborting
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Write loop: WebSocket connection was closed, aborting
 Exiting write loop task
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Exiting write loop task
 Server sent close packet data None, aborting
+2024-04-04 08:03:49 - WARNING - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Server sent close packet data None, aborting
 Waiting for write loop task to end
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Waiting for write loop task to end
 Exiting read loop task
-disconnect calls: [call('IRs6RcL23OI1tTXcAAAB')]
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Exiting read loop task
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/aiohttp/web_log.py - 127.0.0.1 [04/Apr/2024:08:03:49 +0000] "GET /socket.io/?transport=websocket&EIO=4&t=1712217829.8260682 HTTP/1.1" 101 0 "-" "Python/3.9 aiohttp/3.8.6"
+2024-04-04 08:03:49 - DEBUG - //_test_code.py - received disconnect calls: [call('jHXNPyXePhhIMEcVAAAB')]
 service task canceled
+2024-04-04 08:03:49 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_server.py - service task canceled
 ```
 
 ### Fails with aiohttp >= 3.9.0
@@ -66,10 +89,10 @@ service task canceled
 make run-failing
 ```
 ```
-docker run -it --rm --privileged test-image:latest ./code_fails.sh
-Resolved 15 packages in 255ms
-Downloaded 15 packages in 77ms
-Installed 15 packages in 12ms
+leged test-image:latest ./code_fails.sh
+Resolved 15 packages in 268ms
+Downloaded 15 packages in 76ms
+Installed 15 packages in 14ms
  + aiohttp==3.9.3
  + aiosignal==1.3.1
  + async-timeout==4.0.3
@@ -85,35 +108,57 @@ Installed 15 packages in 12ms
  + tenacity==8.2.3
  + wsproto==1.2.0
  + yarl==1.9.4
+2024-04-04 08:04:31 - DEBUG - /usr/local/lib/python3.9/asyncio/selector_events.py - Using selector: EpollSelector
 Server initialized for aiohttp.
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/base_server.py - Server initialized for aiohttp.
 Attempting WebSocket connection to ws://127.0.0.1:8328/socket.io/?transport=websocket&EIO=4
-EHk25EfbUIRGDJE9AAAA: Sending packet OPEN data {'sid': 'EHk25EfbUIRGDJE9AAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
-EHk25EfbUIRGDJE9AAAA: Received request to upgrade to websocket
-EHk25EfbUIRGDJE9AAAA: Upgrade to websocket successful
-WebSocket connection accepted with {'sid': 'EHk25EfbUIRGDJE9AAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Attempting WebSocket connection to ws://127.0.0.1:8328/socket.io/?transport=websocket&EIO=4
+-j-FbYuSKUz1PfVdAAAA: Sending packet OPEN data {'sid': '-j-FbYuSKUz1PfVdAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_socket.py - -j-FbYuSKUz1PfVdAAAA: Sending packet OPEN data {'sid': '-j-FbYuSKUz1PfVdAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+-j-FbYuSKUz1PfVdAAAA: Received request to upgrade to websocket
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_socket.py - -j-FbYuSKUz1PfVdAAAA: Received request to upgrade to websocket
+-j-FbYuSKUz1PfVdAAAA: Upgrade to websocket successful
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_socket.py - -j-FbYuSKUz1PfVdAAAA: Upgrade to websocket successful
+WebSocket connection accepted with {'sid': '-j-FbYuSKUz1PfVdAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - WebSocket connection accepted with {'sid': '-j-FbYuSKUz1PfVdAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
 Engine.IO connection established
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/socketio/async_client.py - Engine.IO connection established
 Sending packet MESSAGE data 0{}
-EHk25EfbUIRGDJE9AAAA: Received packet MESSAGE data 0{}
-EHk25EfbUIRGDJE9AAAA: Sending packet MESSAGE data 0{"sid":"4FyS0Vh2z2NQpb6WAAAB"}
-Received packet MESSAGE data 0{"sid":"4FyS0Vh2z2NQpb6WAAAB"}
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Sending packet MESSAGE data 0{}
+-j-FbYuSKUz1PfVdAAAA: Received packet MESSAGE data 0{}
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_socket.py - -j-FbYuSKUz1PfVdAAAA: Received packet MESSAGE data 0{}
+-j-FbYuSKUz1PfVdAAAA: Sending packet MESSAGE data 0{"sid":"HGbVJ0QOwkzz7G_wAAAB"}
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_socket.py - -j-FbYuSKUz1PfVdAAAA: Sending packet MESSAGE data 0{"sid":"HGbVJ0QOwkzz7G_wAAAB"}
+Received packet MESSAGE data 0{"sid":"HGbVJ0QOwkzz7G_wAAAB"}
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Received packet MESSAGE data 0{"sid":"HGbVJ0QOwkzz7G_wAAAB"}
 Namespace / is connected
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/socketio/async_client.py - Namespace / is connected
 Sending packet MESSAGE data 1
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Sending packet MESSAGE data 1
 Sending packet CLOSE data None
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Sending packet CLOSE data None
 Engine.IO connection dropped
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/socketio/async_client.py - Engine.IO connection dropped
 Write loop: WebSocket connection was closed, aborting
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Write loop: WebSocket connection was closed, aborting
 Exiting write loop task
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Exiting write loop task
 Server sent close packet data None, aborting
+2024-04-04 08:04:31 - WARNING - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Server sent close packet data None, aborting
 Waiting for write loop task to end
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Waiting for write loop task to end
 Exiting read loop task
+2024-04-04 08:04:31 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_client.py - Exiting read loop task
 service task canceled
+2024-04-04 08:04:36 - INFO - /usr/local/lib/python3.9/site-packages/engineio/async_server.py - service task canceled
 Traceback (most recent call last):
-  File "//_test_code.py", line 66, in <module>
+  File "//_test_code.py", line 78, in <module>
     asyncio.run(main())
   File "/usr/local/lib/python3.9/asyncio/runners.py", line 44, in run
     return loop.run_until_complete(main)
   File "/usr/local/lib/python3.9/asyncio/base_events.py", line 647, in run_until_complete
     return future.result()
-  File "//_test_code.py", line 57, in main
+  File "//_test_code.py", line 69, in main
     async for attempt in AsyncRetrying(
   File "/usr/local/lib/python3.9/site-packages/tenacity/_asyncio.py", line 71, in __anext__
     do = self.iter(retry_state=self._retry_state)
@@ -125,7 +170,7 @@ Traceback (most recent call last):
     return self.__get_result()
   File "/usr/local/lib/python3.9/concurrent/futures/_base.py", line 391, in __get_result
     raise self._exception
-  File "//_test_code.py", line 61, in main
+  File "//_test_code.py", line 73, in main
     assert len(spy_disconnect.call_args_list) == 1
 AssertionError
 make: *** [Makefile:10: run-failing] Error 1

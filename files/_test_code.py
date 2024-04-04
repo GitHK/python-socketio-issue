@@ -1,4 +1,5 @@
 import asyncio
+import logging
 
 from aiohttp import web
 from aiohttp.test_utils import TestServer
@@ -10,6 +11,15 @@ from tenacity.wait import wait_fixed
 from typing import AsyncIterator
 from unittest.mock import AsyncMock
 from yarl import URL
+
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s - %(levelname)s - %(pathname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+
+_logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
@@ -40,7 +50,9 @@ async def web_server(socketio_server: AsyncServer) -> AsyncIterator[URL]:
 
 
 async def main() -> None:
-    socketio_server = AsyncServer(async_mode="aiohttp", engineio_logger=True)
+    socketio_server = AsyncServer(
+        async_mode="aiohttp", logger=True, engineio_logger=True
+    )
 
     socketio_client = AsyncClient(logger=True, engineio_logger=True)
 
@@ -59,7 +71,7 @@ async def main() -> None:
         ):
             with attempt:
                 assert len(spy_disconnect.call_args_list) == 1
-        print("disconnect calls:", spy_disconnect.call_args_list)
+        _logger.debug("received disconnect calls: %s", spy_disconnect.call_args_list)
 
 
 if __name__ == "__main__":
