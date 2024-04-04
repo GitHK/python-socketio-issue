@@ -7,5 +7,5 @@ set -o pipefail # don't hide errors within pipes
 IFS=$'\n\t'
 
 
-uv pip install -r scripts/requirements_work.txt
-python scripts/_test_code.py
+uv pip install -r requirements_fail.txt
+python _test_code.py

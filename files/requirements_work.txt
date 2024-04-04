@@ -1,6 +1,6 @@
 # Libraries
-aiohttp>=3.9.0
+aiohttp<3.9.0
 python-socketio==5.11.2
 
 # TESTING
-pytest
+tenacity

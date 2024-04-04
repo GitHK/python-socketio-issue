@@ -1,19 +1,17 @@
-# minimalistic utility to test and develop locally
-
 SHELL = /bin/sh
 .DEFAULT_GOAL := help
 
-.PHONY: build
-build: ## bult test image
+.PHONY: .build
+.build: ## packages docker image
 	docker build -t test-image:latest .
 
 .PHONY: run-failing
-run-failing: ## produces failing results
-	docker run -it --rm --privileged test-image:latest ./scripts/code_fails.sh
+run-failing: .build ## produces failing results
+	docker run -it --rm --privileged test-image:latest ./code_fails.sh
 
 .PHONY: run-working
-run-working: ## produces working results
-	docker run -it --rm  --privileged test-image:latest ./scripts/code_works.sh
+run-working: .build  ## produces working results
+	docker run -it --rm  --privileged test-image:latest ./code_works.sh
 
 .PHONY: help
 help: ## this colorful help
