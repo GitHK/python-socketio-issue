@@ -1,3 +1,8 @@
+# UPDATE
+
+Turns out how we started the server was not a good idea. Using aiohttp and it's bundled TestClient did not play nicely with `python-socketio`.
+
+
 # Missing disconnection event
 
 When using `python-socketio` and `aiohttp>=3.9.0` the `disconnect` event is not triggered.
