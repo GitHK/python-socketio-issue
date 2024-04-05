@@ -1,16 +1,17 @@
 import asyncio
 import logging
-import threading
-import httpx
 
 from aiohttp import web
+from aiohttp.test_utils import TestServer
 from contextlib import asynccontextmanager
 from socketio import AsyncServer, AsyncClient
-from typing import AsyncIterator, Final
+from tenacity import AsyncRetrying
+from tenacity.stop import stop_after_delay
+from tenacity.wait import wait_fixed
+from typing import AsyncIterator
 from unittest.mock import AsyncMock
+from yarl import URL
 
-
-SERVER_PORT: Final[int] = 8328
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -21,77 +22,56 @@ logging.basicConfig(
 _logger = logging.getLogger(__name__)
 
 
-async def start_server(
-    stop_event: threading.Event, socketio_server: AsyncServer
-) -> None:
-    async def handle_default(request):
-        return web.Response(text="This is the default route!")
-
+@asynccontextmanager
+async def web_server(socketio_server: AsyncServer) -> AsyncIterator[URL]:
     aiohttp_app = web.Application()
-    aiohttp_app.router.add_get("/", handle_default)
     socketio_server.attach(aiohttp_app)
 
-    runner = web.AppRunner(aiohttp_app)
-    await runner.setup()
+    async def _lifespan(
+        server: TestServer, started: asyncio.Event, teardown: asyncio.Event
+    ):
+        await server.start_server()
+        started.set()
+        await teardown.wait()
+        await server.close()
 
-    tcp_server = await asyncio.get_event_loop().create_server(
-        runner.server, "0.0.0.0", SERVER_PORT
-    )
-    _logger.info("Server started")
+    setup = asyncio.Event()
+    teardown = asyncio.Event()
 
-    stop_event.wait()
+    server = TestServer(aiohttp_app, port=8328)
+    t = asyncio.create_task(_lifespan(server, setup, teardown), name="server-lifespan")
 
-    # Cleanup when the event is set
-    tcp_server.close()
-    await tcp_server.wait_closed()
-    await runner.cleanup()
-    _logger.info("Server stopped")
+    await setup.wait()
 
+    yield server.make_url("/")
 
-def _async_thread_worker(stop_event: threading.Event, socketio_server: AsyncServer):
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(start_server(stop_event, socketio_server))
-
-
-@asynccontextmanager
-async def server_runner() -> AsyncIterator[None]:
-    socketio_server = AsyncServer(
-        async_mode="aiohttp", logger=True, engineio_logger=True
-    )
-    # observe the disconnect event triggered by the server
-    spy_disconnect = AsyncMock(wraps=lambda _: None)
-    socketio_server.on("disconnect", spy_disconnect)
-
-    stop_event = threading.Event()
-    server_thread = threading.Thread(
-        target=_async_thread_worker, args=(stop_event, socketio_server)
-    )
-    server_thread.start()
-
-    try:
-        await asyncio.sleep(0.5)
-        yield
-    finally:
-        stop_event.set()
-        server_thread.join()
-
-    await asyncio.sleep(1)
-    assert len(spy_disconnect.call_args_list) == 1
+    assert t
+    teardown.set()
 
 
 async def main() -> None:
-    async with server_runner():
-        server_url = f"http://localhost:{SERVER_PORT}/"
+    socketio_server = AsyncServer(
+        async_mode="aiohttp", logger=True, engineio_logger=True
+    )
 
-        result = await httpx.get(server_url, timeout=1)
-        assert result.text == ""
+    socketio_client = AsyncClient(logger=True, engineio_logger=True)
 
-        socketio_client = AsyncClient(logger=True, engineio_logger=True)
-        await socketio_client.connect(server_url, transports=["websocket"])
+    async with web_server(socketio_server) as server_url:
+        # observe the disconnect event triggered by the server
+        spy_disconnect = AsyncMock(wraps=lambda _: None)
+        socketio_server.on("disconnect", spy_disconnect)
+
+        await socketio_client.connect(f"{server_url}", transports=["websocket"])
 
         # disconnect client and wait for server event delivery
         await socketio_client.disconnect()
+
+        async for attempt in AsyncRetrying(
+            wait=wait_fixed(0.1), stop=stop_after_delay(5), reraise=True
+        ):
+            with attempt:
+                assert len(spy_disconnect.call_args_list) == 1
+        _logger.debug("received disconnect calls: %s", spy_disconnect.call_args_list)
 
 
 if __name__ == "__main__":
