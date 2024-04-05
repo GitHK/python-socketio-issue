@@ -1,5 +1,6 @@
-import logging
 import asyncio
+import logging
+
 from aiohttp import web
 from contextlib import asynccontextmanager
 from socketio import AsyncServer, AsyncClient
